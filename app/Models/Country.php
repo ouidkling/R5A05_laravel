@@ -11,11 +11,11 @@ class Country extends Model
     use HasFactory;
 
     /**
-     * The model's default values for attributes.
+     * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $attributes = [
+    protected $fillable = [
         'name' => 'string',
     ];
 
