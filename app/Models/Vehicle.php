@@ -36,4 +36,12 @@ class Vehicle extends Model
     {
         return $this->hasOne(Category::class);
     }
+
+    /**
+     * Get the vehicles associated with the country
+     */
+    public function navalCategory(): HasOne
+    {
+        return $this->hasOne(NavalCategory::class);
+    }
 }
