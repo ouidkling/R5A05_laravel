@@ -22,34 +22,7 @@ class VehicleSeeder extends Seeder
             $category = Category::firstOrCreate(['name' => $categoryData]);
 
             if ($categoryData === 'naval') {
-                foreach ($countries as $countryData => $navalCategories) {
-                    $country = Country::firstOrCreate(['name' => $countryData]);
-
-                    foreach ($navalCategories as $navalCategoryData => $vehicles) {
-                        // to skip the 'updated_at' key
-                        if ($navalCategoryData === 'updated_at') {
-                            continue;
-                        }
-
-                        // there can be no vehicles in a naval category
-                        if (empty(get_object_vars($vehicles))) {
-                            continue;
-                        }
-
-                        $navalCategory = NavalCategory::firstOrCreate(['name' => $navalCategoryData]);
-
-                        foreach ($vehicles->vehicles as $vehicleData) {
-                            \App\Models\Vehicle::create([
-                                'category_id' => $category->id,
-                                'country_id' => $country->id,
-                                'naval_category_id' => $navalCategory->id,
-                                'name' => $vehicleData->name,
-                                'thumbnail_img_url' => $vehicleData->thumbnail_img_url,
-                                'wiki_page' => $vehicleData->wiki_page,
-                            ]);
-                        }
-                    }
-                }
+                $this->navalVehicles($countries, $category);
                 continue;
             }
 
@@ -60,6 +33,39 @@ class VehicleSeeder extends Seeder
                     \App\Models\Vehicle::create([
                         'category_id' => $category->id,
                         'country_id' => $country->id,
+                        'name' => $vehicleData->name,
+                        'thumbnail_img_url' => $vehicleData->thumbnail_img_url,
+                        'wiki_page' => $vehicleData->wiki_page,
+                    ]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Particular treatment for naval vehicles.
+     *
+     * @param $countries
+     * @param Category $category
+     */
+    public function navalVehicles($countries, Category $category)
+    {
+        foreach ($countries as $countryData => $navalCategories) {
+            $country = Country::firstOrCreate(['name' => $countryData]);
+
+            foreach ($navalCategories as $navalCategoryData => $vehicles) {
+                // to skip the 'updated_at' key & there can be no vehicles in a naval category
+                if ($navalCategoryData === 'updated_at' || empty(get_object_vars($vehicles))) {
+                    continue;
+                }
+
+                $navalCategory = NavalCategory::firstOrCreate(['name' => $navalCategoryData]);
+
+                foreach ($vehicles->vehicles as $vehicleData) {
+                    \App\Models\Vehicle::create([
+                        'category_id' => $category->id,
+                        'country_id' => $country->id,
+                        'naval_category_id' => $navalCategory->id,
                         'name' => $vehicleData->name,
                         'thumbnail_img_url' => $vehicleData->thumbnail_img_url,
                         'wiki_page' => $vehicleData->wiki_page,
