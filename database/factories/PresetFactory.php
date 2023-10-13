@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class PresetFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'country_id' => Country::inRandomOrder()->first()->id,
+            'name' => fake()->userName(),
         ];
     }
 }
