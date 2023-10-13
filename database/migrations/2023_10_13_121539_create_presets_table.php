@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Country;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,15 +15,10 @@ return new class extends Migration
     {
         Schema::create('presets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('country_id')->nullable();
             $table->string('name');
             $table->timestamps();
-        });
-
-        Schema::table('presets', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Country::class);
         });
     }
 
@@ -30,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presets');
+        Schema::withoutForeignKeyConstraints(function () {
+            Schema::dropIfExists('presets');
+        });
     }
 };

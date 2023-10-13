@@ -42,6 +42,6 @@ class Preset extends Model
      */
     public function vehicles(): BelongsToMany
     {
-        return $this->BelongsToMany(Vehicle::class)->withTimestamps();
+        return $this->belongsToMany(Vehicle::class)->withTimestamps();
     }
 }

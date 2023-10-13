@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Preset;
+use App\Models\Vehicle;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,15 +14,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('preset_vehicle', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('preset_id')->unique();
-            $table->unsignedBigInteger('vehicle_id')->unique();
+            $table->foreignIdFor(Preset::class);
+            $table->foreignIdFor(Vehicle::class);
+            $table->primary(['preset_id', 'vehicle_id']);
             $table->timestamps();
-        });
-
-        Schema::table('preset_vehicle', function (Blueprint $table) {
-            $table->foreign('preset_id')->references('id')->on('presets');
-            $table->foreign('vehicle_id')->references('id')->on('vehicles');
         });
     }
 
@@ -29,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('preset_vehicle');
+        Schema::withoutForeignKeyConstraints(function () {
+            Schema::dropIfExists('preset_vehicle');
+        });
     }
 };
