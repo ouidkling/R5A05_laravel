@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Vehicle extends Model
 {
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -38,10 +37,15 @@ class Vehicle extends Model
     }
 
     /**
-     * Get the vehicles associated with the country
+     * Get the vehicles associated with the country.
      */
     public function navalCategory(): HasOne
     {
         return $this->hasOne(NavalCategory::class);
+    }
+
+    public function preset(): BelongsToMany
+    {
+        return $this->belongsToMany(Preset::class)->withTimestamps();
     }
 }

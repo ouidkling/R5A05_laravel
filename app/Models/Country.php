@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -20,10 +18,18 @@ class Country extends Model
     ];
 
     /**
-     * Get the vehicles associated with the country
+     * Get the vehicles associated with the country.
      */
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class);
+    }
+
+    /**
+     * Get the presets associated with the country.
+     */
+    public function presets(): HasMany
+    {
+        return $this->hasMany(Preset::class);
     }
 }
