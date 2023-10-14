@@ -37,13 +37,16 @@ class Vehicle extends Model
     }
 
     /**
-     * Get the vehicles associated with the country.
+     * Get the naval category associated with the vehicle.
      */
     public function navalCategory(): HasOne
     {
         return $this->hasOne(NavalCategory::class);
     }
 
+    /**
+     * Get the presets associated with the vehicle.
+     */
     public function preset(): BelongsToMany
     {
         return $this->belongsToMany(Preset::class)->withTimestamps();
