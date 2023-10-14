@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -23,25 +24,25 @@ class Vehicle extends Model
     /**
      * Get the country associated with the vehicle.
      */
-    public function country(): HasOne
+    public function country(): BelongsTo
     {
-        return $this->hasOne(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
     /**
      * Get the category associated with the vehicle.
      */
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     /**
      * Get the naval category associated with the vehicle.
      */
-    public function navalCategory(): HasOne
+    public function navalCategory(): BelongsTo
     {
-        return $this->hasOne(NavalCategory::class);
+        return $this->belongsTo(NavalCategory::class);
     }
 
     /**
