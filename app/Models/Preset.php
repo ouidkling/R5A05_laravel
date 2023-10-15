@@ -16,10 +16,11 @@ class Preset extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
-        'name' => 'string',
+        'country_id',
+        'name',
     ];
 
     /**
@@ -43,6 +44,6 @@ class Preset extends Model
      */
     public function vehicles(): BelongsToMany
     {
-        return $this->belongsToMany(Vehicle::class)->withTimestamps();
+        return $this->belongsToMany(Vehicle::class);
     }
 }

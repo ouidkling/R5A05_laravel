@@ -13,12 +13,12 @@ class Vehicle extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
-        'name' => 'string',
-        'thumbnail_img_url' => 'string',
-        'wiki_page' => 'string',
+        'name',
+        'thumbnail_img_url',
+        'wiki_page',
     ];
 
     /**
@@ -50,6 +50,6 @@ class Vehicle extends Model
      */
     public function preset(): BelongsToMany
     {
-        return $this->belongsToMany(Preset::class)->withTimestamps();
+        return $this->belongsToMany(Preset::class);
     }
 }

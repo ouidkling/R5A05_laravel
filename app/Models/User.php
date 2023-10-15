@@ -49,6 +49,6 @@ class User extends Authenticatable
      */
     public function presets(): HasMany
     {
-        return $this->hasMany(Preset::class)->withTimestamps();
+        return $this->hasMany(Preset::class);
     }
 }

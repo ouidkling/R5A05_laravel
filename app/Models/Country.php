@@ -11,10 +11,10 @@ class Country extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
-        'name' => 'string',
+        'name',
     ];
 
     /**
