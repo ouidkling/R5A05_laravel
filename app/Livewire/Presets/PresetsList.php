@@ -12,6 +12,13 @@ class PresetsList extends Component
 
     public $editing = null;
 
+    public function delete(Preset $preset)
+    {
+        $this->authorize('delete', $preset);
+        $preset->delete();
+        $this->presets = auth()->user()->presets()->get();
+    }
+
     public function edit(Preset $preset)
     {
         $this->editing = $preset;

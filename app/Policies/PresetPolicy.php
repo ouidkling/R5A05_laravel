@@ -45,7 +45,7 @@ class PresetPolicy
      */
     public function delete(User $user, Preset $preset): bool
     {
-        //
+        return $this->update($user, $preset);
     }
 
     /**

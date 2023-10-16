@@ -39,6 +39,9 @@
                                                 <x-dropdown-link wire:click="edit({{ $preset->id }})">
                                                     {{ __('Edit') }}
                                                 </x-dropdown-link>
+                                                <x-dropdown-link wire:click="delete({{ $preset->id }})">
+                                                    {{ __('Delete') }}
+                                                </x-dropdown-link>
                                             </x-slot>
                                         </x-dropdown>
                                     @endif
