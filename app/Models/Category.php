@@ -8,19 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
-        'name' => 'string',
+        'name',
     ];
 
     /**
-     * Get the vehicles associated with the category
+     * Get the vehicles associated with the category.
      */
     public function vehicles(): HasMany
     {

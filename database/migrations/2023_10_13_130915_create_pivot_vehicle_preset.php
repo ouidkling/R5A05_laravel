@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Preset;
+use App\Models\Vehicle;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('thumbnail_img_url');
-            $table->string('wiki_page');
+        Schema::create('preset_vehicle', function (Blueprint $table) {
+            $table->foreignIdFor(Preset::class);
+            $table->foreignIdFor(Vehicle::class);
+            $table->primary(['preset_id', 'vehicle_id']);
             $table->timestamps();
         });
     }
@@ -25,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicles');
+        Schema::withoutForeignKeyConstraints(function () {
+            Schema::dropIfExists('preset_vehicle');
+        });
     }
 };

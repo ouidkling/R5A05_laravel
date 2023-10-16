@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\NavalCategory;
+use App\Models\Vehicle;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -29,8 +30,12 @@ class VehicleSeeder extends Seeder
             foreach ($countries as $countryData => $vehicles) {
                  $country = Country::firstOrCreate(['name' => $countryData]);
 
+                if (empty(get_object_vars($vehicles))) {
+                    continue;
+                }
+
                 foreach ($vehicles->vehicles as $vehicleData) {
-                    \App\Models\Vehicle::create([
+                    Vehicle::create([
                         'category_id' => $category->id,
                         'country_id' => $country->id,
                         'name' => $vehicleData->name,
@@ -62,7 +67,7 @@ class VehicleSeeder extends Seeder
                 $navalCategory = NavalCategory::firstOrCreate(['name' => $navalCategoryData]);
 
                 foreach ($vehicles->vehicles as $vehicleData) {
-                    \App\Models\Vehicle::create([
+                    Vehicle::create([
                         'category_id' => $category->id,
                         'country_id' => $country->id,
                         'naval_category_id' => $navalCategory->id,

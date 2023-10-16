@@ -23,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('naval_categories');
+        Schema::withoutForeignKeyConstraints(function () {
+            Schema::dropIfExists('naval_categories');
+        });
     }
 };
