@@ -9,9 +9,12 @@ class PresetsList extends Component
 {
     public $presets;
 
-    #[On('preset-created')]
+    public $editing = null;
+
+    #[On(['preset-created', 'preset-updated', 'preset-edit-canceled'])]
     public function mount()
     {
+        $this->editing = null;
         $this->presets = auth()->user()->presets()->get();
     }
 
