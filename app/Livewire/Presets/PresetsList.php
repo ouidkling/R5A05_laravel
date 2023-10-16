@@ -27,10 +27,15 @@ class PresetsList extends Component
     #[On('preset-created')]
     #[On('preset-updated')]
     #[On('preset-edit-canceled')]
-    public function mount()
+    public function getPresets()
     {
         $this->editing = null;
         $this->presets = auth()->user()->presets()->get();
+    }
+
+    public function mount()
+    {
+       $this->getPresets();
     }
 
     public function render()

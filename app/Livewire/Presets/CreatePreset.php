@@ -25,7 +25,7 @@ class CreatePreset extends Component
         $validated = $this->validate();
         auth()->user()->presets()->create($validated);
 
-        $this->reset('country_id', 'name');
+        $this->resetExcept('countries');
         $this->dispatch('preset-created');
     }
 
