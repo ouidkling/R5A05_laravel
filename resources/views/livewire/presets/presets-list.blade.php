@@ -10,7 +10,7 @@
     @else
         @foreach ($presets as $preset)
             @if ($preset->is($editing))
-                <livewire:presets.edit-preset :$preset>
+                <livewire:presets.edit-preset :preset="$preset">
             @else
 {{--                <livewire:presets.show-preset :$preset>--}}
                 <div class="mb-4 bg-white dark:bg-gray-300 shadow-sm rounded-lg divide-y">
@@ -25,9 +25,6 @@
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <span class="text-gray-800">{{ $preset->name }}</span>
-                                        @unless ($preset->created_at->eq($preset->updated_at))
-                                            <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
-                                        @endunless
                                     </div>
                                     @if ($preset->user->is(auth()->user()))
                                         <x-dropdown>
